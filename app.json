@@ -23,7 +23,8 @@
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION"
-      ]
+      ],
+      "package": "com.ilrascal23.kasanotify"
     },
     "web": {
       "bundler": "metro",
@@ -46,7 +47,11 @@
       "typedRoutes": true
     },
     "extra": {
-      "apiKey": "9acf2fa38e6812ffd9bb762ca88ab5fd"
+      "apiKey": "9acf2fa38e6812ffd9bb762ca88ab5fd",
+      "router": {},
+      "eas": {
+        "projectId": "9f243ed5-1f12-4f2a-9684-9f9620ee24fb"
+      }
     }
   }
 }

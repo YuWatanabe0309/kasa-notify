@@ -4,10 +4,9 @@ import * as Location from 'expo-location';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
-  Platform,
   StyleSheet,
   Text,
-  View,
+  View
 } from 'react-native';
 
 const API_KEY = Constants.expoConfig?.extra?.apiKey;
@@ -21,13 +20,13 @@ export default function HomeScreen() {
   // --- 1. 位置情報の取得とパーミッション処理 ---
   useEffect(() => {
     const requestLocationAndPermission = async () => {
-      if (Platform.OS === 'android' && !Constants.isDevice) {
-        setErrorMsg(
-          'Androidエミュレータでは位置情報がうまく機能しない場合があります。実機で試してください。'
-        );
-        setIsLoading(false);
-        return;
-      }
+      // if (Platform.OS === 'android' && !Constants.isDevice) {
+      //   setErrorMsg(
+      //     'Androidエミュレータでは位置情報がうまく機能しない場合があります。実機で試してください。'
+      //   );
+      //   setIsLoading(false);
+      //   return;
+      // }
 
       // 位置情報利用の許可をリクエスト
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -78,7 +77,15 @@ export default function HomeScreen() {
         );
         const mainWeather = response.data.weather[0].main;
         const description = response.data.weather[0].description;
-        console.log('天気情報:', mainWeather, description);
+        console.log(
+          '天気情報 (緯度:',
+        latitude,
+        '経度:',
+        longitude,
+        '):',
+        mainWeather,
+        description
+        );
 
         const needsUmbrella =
           mainWeather.includes('Rain') ||
