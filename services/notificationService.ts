@@ -3,6 +3,7 @@ import Constants from 'expo-constants';
 import * as Location from 'expo-location';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
+import { getNotificationTime } from './settingsService';
 
 // アプリがフォアグラウンドの時に通知を受け取った時のハンドラー
 Notifications.setNotificationHandler({
@@ -110,6 +111,7 @@ async function scheduleDailyNotification() {
 
   // 3. 天気情報を取得して通知をスケジュール
   const { latitude, longitude } = currentLocation.coords;
+  const notificationTime = await getNotificationTime();
   const notificationMessage = await getWeatherNotificationMessage(latitude, longitude);
 
   // 既存の通知をキャンセルしてから新しい通知をスケジュール (重複を防ぐ)
@@ -122,8 +124,8 @@ async function scheduleDailyNotification() {
     },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.CALENDAR,
-      hour: 7,
-      minute: 0,
+      hour: notificationTime.hour,
+      minute: notificationTime.minute,
       repeats: true,
     },
   });
